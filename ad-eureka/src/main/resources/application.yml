@@ -1,0 +1,75 @@
+#spring:
+#  application:
+##    module的名称，即服务的名称
+#    name: ad-eureka
+#server:
+#  port: 8000
+#
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+##    默认为true，但是需要为false。
+##  表示是否从eurekaServer获取注册信息
+##    因为是单机，因此不需要同步其他节点的数据。不需要获取其他节点的注册信息
+#    fetch-registry: false
+##    默认为true，也需要改为false
+##  不需要把这个server注册到eurekaServer上。
+##  eurekaServer之间是需要相互注册的，
+##  这样才能形成一个高可用的集群
+#    register-with-eureka: false
+#    service-url:
+##      默认的eureka server的地址
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#3个---为yml的分隔符
+
+#3个server直接互相注册，1个sever分别向另外2个注册
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server1
+server:
+  port: 8000
+eureka:
+  instance:
+    hostname: server1
+#    是否使用IP地址注册，默认是false。IP是宝贵的，，单节点会出错失败
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server2:8001/eureka,http://server3:8002/eureka,
+
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server2
+server:
+  port: 8001
+eureka:
+  instance:
+    hostname: server2
+    #    是否使用IP地址注册，默认是false。IP是宝贵的，，单节点会出错失败
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/,http://server3:8002/eureka/
+
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server3
+server:
+  port: 8002
+eureka:
+  instance:
+    hostname: server3
+    #    是否使用IP地址注册，默认是false。IP是宝贵的，，单节点会出错失败
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server2:8001/eureka/,http://server1:8000/eureka/
+
+
