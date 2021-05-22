@@ -9,6 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ad-eureka</module>
+        <module>ad-gateway</module>
+        <module>cloud-ad-service</module>
+        <module>ad-common</module>
+        <module>cloud-ad-service/ad-common</module>
     </modules>
 
     <packaging>pom</packaging>
