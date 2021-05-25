@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: ad-gateway
+#eureka: 坑！拒绝连接，原因，少了client
+#    service-url:
+#      defaultZone: http://localhost:9002/eureka/
 eureka:
+  client:
     service-url:
-      defaultZone: http://server1:9002/eureka/
+      defaultZone: http://server1:8000/eureka/

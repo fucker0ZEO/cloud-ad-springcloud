@@ -3,7 +3,7 @@ spring:
 #    module的名称，即服务的名称
     name: ad-eureka
 server:
-  port: 9002
+  port: 8000
 
 eureka:
   instance:
@@ -17,7 +17,7 @@ eureka:
 #  不需要把这个server注册到eurekaServer上。
 #  eurekaServer之间是需要相互注册的，
 #  这样才能形成一个高可用的集群
-    register-with-eureka: false
+    register-with-eureka: true
     service-url:
 #      默认的eureka server的地址
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
