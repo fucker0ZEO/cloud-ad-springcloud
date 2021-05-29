@@ -10,6 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author fucker
  * @EnableFeignClients 集合Feign便于负载均衡和远程调用
  *@EnableCircuitBreaker 启动hystrix的数据监控
+ * @EnableEurekaClient 标识为eureka client
  */
 @SpringBootApplication
 @EnableFeignClients

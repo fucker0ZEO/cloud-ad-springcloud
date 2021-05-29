@@ -19,14 +19,18 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
-        <!-- 引入 Web 功能 -->
+        <!-- 引入 Web 功能.
+        投放系统需要通过web开放给广告主
+        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--
-            Eureka 客户端, 客户端向 Eureka Server 注册的时候会提供一系列的元数据信息, 例如: 主机, 端口, 健康检查url等
-            Eureka Server 接受每个客户端发送的心跳信息, 如果在某个配置的超时时间内未接收到心跳信息, 实例会被从注册列表中移除
+            Eureka 客户端, 客户端向 Eureka Server 注册的时候会提供一系列的元数据信息,
+            例如: 主机, 端口, 健康检查url等
+            Eureka Server 接受每个客户端发送的心跳信息,
+            如果在某个配置的超时时间内未接收到心跳信息, 实例会被从注册列表中移除
         -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -61,7 +65,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.12</version>
+            <version>8.0.17</version>
             <scope>runtime</scope>
         </dependency>
         <!-- 通用模块,引入自定义的common -->

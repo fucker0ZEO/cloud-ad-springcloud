@@ -1,25 +1,37 @@
 server:
   port: 7000
   servlet:
+#    子模块，需要加上context-path前缀
     context-path: /ad-sponsor
 
 spring:
   application:
     name: eureka-client-ad-sponsor
   jpa:
+#    执行ORM时打印SQL
     show-sql: true
     hibernate:
+#      手动创建数据表，不让hibernate自动生成数据表
       ddl-auto: none
     properties:
+#      打印的SQL进行格式化，便于阅读
       hibernate.format_sql: true
+#      mvc的controller中使用了hibernate的lazy load的属性时
+#      没有session抛出的LazyInitializationException异常；
+#      对hibernate来说ToMany关系默认是延迟加载，而ToOne关系则默认是立即加载
     open-in-view: false
   datasource:
+#    autoReconnect=true，和MySQL断开连接后是否重连
     url: jdbc:mysql://127.0.0.1:3306/ad_data?autoReconnect=true
     username: root
     password: root
+#    tomcat的数据库连接池
     tomcat:
-      max-active: 4
-      min-idle: 2
+#      最大连接12
+      max-active: 12
+#      最小空闲连接6
+      min-idle: 6
+#      初始化连接2
       initial-size: 2
 
 eureka:
