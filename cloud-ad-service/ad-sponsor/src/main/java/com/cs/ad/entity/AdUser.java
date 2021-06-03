@@ -44,7 +44,7 @@ public class AdUser {
     private Integer userStatus;
 
     @Basic
-    @Column(name = "createTime",nullable = false)
+    @Column(name = "create_time",nullable = false)
     private Date createTime;
 
     @Basic

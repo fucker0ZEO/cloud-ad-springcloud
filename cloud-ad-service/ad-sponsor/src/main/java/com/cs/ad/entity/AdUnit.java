@@ -67,7 +67,7 @@ public class AdUnit {
     private Long budget;
 
     @Basic
-    @Column(name = "createTime",nullable = false)
+    @Column(name = "create_time",nullable = false)
     private Date createTime;
 
     /**

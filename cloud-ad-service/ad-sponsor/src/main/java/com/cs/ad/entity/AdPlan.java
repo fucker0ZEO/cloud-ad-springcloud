@@ -70,7 +70,7 @@ public class AdPlan {
      * nullable = false，值不能为null
      */
     @Basic
-    @Column(name = "createTime",nullable = false)
+    @Column(name = "create_time",nullable = false)
     private Date createTime;
 
     /**

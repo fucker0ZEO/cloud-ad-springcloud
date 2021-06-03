@@ -30,7 +30,7 @@
       <option name="IGNORE_JAVADOC_PERIOD" value="true" />
       <option name="IGNORE_DUPLICATED_THROWS" value="false" />
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-      <option name="myAdditionalJavadocTags" value="date,RestControllerAdvice：对响应实现统一拦截,description:,time:,author:,return:" />
+      <option name="myAdditionalJavadocTags" value="date,RestControllerAdvice：对响应实现统一拦截,description:,time:,author:,return:,Service,Service：,Service注解,throw" />
     </inspection_tool>
   </profile>
 </component>

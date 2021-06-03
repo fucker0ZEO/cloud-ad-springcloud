@@ -18,7 +18,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "ad_unit_keyword")
-public class AdUnitKeyWord {
+public class AdUnitKeyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)
@@ -36,11 +36,13 @@ public class AdUnitKeyWord {
     @Column(name = "unit_id",nullable = false)
     private Long unitId;
 
+    /**具体关键词
+     * */
     @Basic
     @Column(name = "key_word",nullable = false)
     private String keyWord;
 
-    public AdUnitKeyWord(Long unitId, String keyWord){
+    public AdUnitKeyword(Long unitId, String keyWord){
         this.unitId = unitId;
         this.keyWord = keyWord;
     }
