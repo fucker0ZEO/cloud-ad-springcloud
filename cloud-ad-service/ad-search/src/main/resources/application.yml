@@ -1,0 +1,42 @@
+
+server:
+  port: 7001
+  servlet:
+    #http controller的请求路径，统一的访问前缀
+    context-path: /ad-search
+
+spring:
+  application:
+    name: eureka-client-ad-search
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.format_sql: true
+    open-in-view: false
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/ad_data?autoReconnect=true
+    username: root
+    password: root
+    tomcat:
+      max-active: 4
+      min-idle: 2
+      initial-size: 2
+
+#注册到euraka服务器
+eureka:
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+
+#对项目进行监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
