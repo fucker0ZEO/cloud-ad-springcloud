@@ -20,21 +20,22 @@ spring:
     username: root
     password: root
     tomcat:
-      max-active: 4
-      min-idle: 2
+      max-active: 12
+      min-idle: 6
       initial-size: 2
 
-#注册到euraka服务器
+#注册到eureka服务器
 eureka:
   client:
     service-url:
       defaultZone: http://server1:8000/eureka/
 
+#使用feign和hystrix
 feign:
   hystrix:
     enabled: true
 
-#对项目进行监控
+#对项目进行监控,*代表暴露全部监控信息
 management:
   endpoints:
     web:
