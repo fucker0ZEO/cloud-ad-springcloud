@@ -19,6 +19,7 @@ public class CommonUtils {
     }
     /**自定义所需要的日期格式*/
     public static String[] parseCommonValues = {
+//           满足其中一个就可以实现转换
             "yyyy-MM-dd","yyyy/MM/dd","yyyy.MM.dd"
     };
     /**String类型的日期格式转化*/
@@ -28,6 +29,7 @@ public class CommonUtils {
 //            将传入的日期格式转化为定义的日期格式
             return DateUtils.parseDate(dateString,parseCommonValues);
         } catch (ParseException e) {
+//            不包含所支持的格式，抛出异常
             throw new AdException(e.getMessage());
         }
     }

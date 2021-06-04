@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * @author fucker
+ * creativeUnit的响应的对象
+ * 返回的数据：creative_unit表的主键，ids
  */
 @Data
 @AllArgsConstructor

@@ -16,12 +16,15 @@ import org.apache.commons.lang.StringUtils;
 public class AdUnitRequest {
     private Long planId;
     private String unitName;
+    /**标识广告位的类型，开屏/贴片*/
     private Integer positionType;
+    /**推广单元预算*/
     private Long budget;
 
 
     /**校验推广单元是否为null
      * 4种传参，每一种都不为null即整体不为null
+     * 计划Id不为null，推广单元名称不为null，广告位类型，预算不为null
      * */
     public boolean createValidate(){
         return null != planId

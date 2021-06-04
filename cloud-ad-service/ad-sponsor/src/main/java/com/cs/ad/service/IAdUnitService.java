@@ -32,6 +32,17 @@ public interface IAdUnitService {
     AdUnitDistrictResponse createUnitDistrict(AdUnitDistrictRequest request)
             throws AdException;
 
+
+    /**
+     *createCreativeUnit
+     * @description: 创意推广单元创意
+     * 向creative_unit表中插入数据
+     * 表中有3个字段：主键id，creativeId，unitId3个字段
+     * 主键id自动生成，接受的请求对象中有另外2个id，无需额外的处理即可插入数据
+     * @param request 返回的响应对象--返回的数据为主键ids
+     * @return CreativeUnitResponse 接受的请求对象
+     * @throws AdException 广告系统统一异常处理
+     */
     CreativeUnitResponse createCreativeUnit(CreativeUnitRequest request)
             throws AdException;
 

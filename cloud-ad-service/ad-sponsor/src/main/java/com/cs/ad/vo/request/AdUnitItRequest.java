@@ -8,7 +8,9 @@ import java.util.List;
 
 /**
  * @author fucker
- * 接收前端请求的请求对象
+ * 接收前端请求的请求对象--兴趣维度的推广单元请求对象
+ * 允许批量创建，因此使用内部类
+ * 需要接收的数据：unitId,itTag
  */
 @Data
 @NoArgsConstructor
@@ -22,5 +24,6 @@ public class AdUnitItRequest {
         private String itTag;
     }
 
+    /**内部类推广计划实现批量创建*/
     private List<UnitIt> unitIts;
 }
