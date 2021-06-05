@@ -1,6 +1,8 @@
 package com.cs.ad.index.adUnit;
 
 import com.cs.ad.index.IndexAware;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,6 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author fucker
  */
+@Slf4j
+@Component
 public class AdUnitIndex implements IndexAware<Long,AdUnitObject> {
     /**同样定义存储整个索引对象的并发map*/
     private static Map<Long,AdUnitObject> objectMap;
