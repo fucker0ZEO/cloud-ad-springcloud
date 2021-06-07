@@ -1,18 +1,14 @@
-package com.cs.ad.index.keyword;
+package com.cs.ad.index.Inverted.interest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author fucker
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UnitKeywordObject {
+public class UnitItObject {
 
     private Long unitId;
-    private String keyword;
-
+    private String itTag;
 }
