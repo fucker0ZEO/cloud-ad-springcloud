@@ -16,14 +16,17 @@ import lombok.NoArgsConstructor;
 public class AdUnitObject {
 
     private Long unitId;
-    private Long planId;
     private Integer unitStatus;
+
     private Integer positionType;
+    private Long planId;
 
     /**这个也是模型聚合？？？
      * 一个model中嵌套着另一个model
      * 然后只是方便获取推广计划*/
     private AdPlanObject adPlanObject;
+
+
 
     /**同样的update依次增加*/
     void update(AdUnitObject newObject) {

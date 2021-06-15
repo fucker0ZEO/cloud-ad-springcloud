@@ -14,12 +14,14 @@ public class CreativeObject {
     private  Long adId;
     private String name;
     private Integer type;
+    /**广告素材的类型，例如图像是gif格式还是JPG格式*/
     private Integer materialType;
     private Integer height;
     private Integer width;
     /**审核状态*/
     private Integer auditStatus;
     private String adUrl;
+
 
 
     /**依次校验，单值更新

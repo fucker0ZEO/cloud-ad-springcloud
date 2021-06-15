@@ -16,6 +16,7 @@ public class AdCreativeTable {
     private Long adId;
     private String name;
     private Integer type;
+    /**广告素材的类型，例如图像是gif格式还是JPG格式*/
     private Integer materialType;
     private Integer height;
     private Integer width;
