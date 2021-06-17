@@ -84,5 +84,16 @@ public class DataTable implements ApplicationContextAware, PriorityOrdered {
     }
 
 
+    /*of 方法是其该类的核心方法
+    传入类型
+    根据类型到本来中new的dataTableMap中去寻找对应的对象
+    如果没有找到，则使用put方法将类型，和bean(clazz)填充到map中
+    【这里的bean方法会调用
+    applicationContext.getBean(clazz)
+    spring的应用程序上下文中必然有着对应的bean，即类型对应的对象
+    】
+    最后再调用一次dataTableMap的get方法，这个时候已经有对象了，可以成功返回对应的索引对象
+    */
+
 
 }

@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author fucker
- * @Component注解作为spring组件
+ * @Component 注解作为spring组件
  * Long,对应接口中的k，一般都是通过主键id来索引，因此为long
  * 类型
  * AdPlanObject，索引中数据记录的实体类对象。根据k拿到v，根据主键id

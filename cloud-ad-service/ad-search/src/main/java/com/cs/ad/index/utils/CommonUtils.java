@@ -35,4 +35,20 @@ public class CommonUtils {
 
         return map.computeIfAbsent(key,k -> factory.get());
     }
+
+    /**连接符拼接*/
+    public static String stringConcat(String... args) {
+        /*StringBuilder实现字符串拼接*/
+        StringBuilder result = new StringBuilder();
+        /*args使用for循环添加到result中*/
+        for (String arg : args){
+            result.append(arg);
+            /*加上关键的连字符*/
+            result.append("-");
+        }
+        /*每次for循环末尾都会多一个连字符，因此需要删除*/
+        result.deleteCharAt(result.length() -1);
+
+        return result.toString();
+    }
 }
