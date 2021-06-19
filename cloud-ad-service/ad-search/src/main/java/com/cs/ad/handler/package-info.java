@@ -19,5 +19,9 @@ package com.cs.ad.handler;
 * 然后调用其中的方法，方法的参数是传入的k,v，即实体类id和实体类object
 *
 * 参考handleLevel3的AdCreativeUnitTable作为示例
+* 加载全量索引最关键的2个类：IndexFileLoader和AdLevelDataHandler
+* AdLevelDataHandler做好数据的转换，IndexFileLoader调用AdLevelDataHandler完整整体的操作
+* 但这些都是读取已经写入的文件。
+* 而将DB中的文件写入为JSON文件则是在DumpDataService测试类中
 *
 * */

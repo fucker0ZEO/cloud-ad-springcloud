@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 实现导出服务
+ * 实现导出服务，将DB中的文件写入为JSON文件
  * @RunWith(SpringRunner.class) 注解标记为测试用例
  *
  * 标记为springBoot的测试用例+指定启动类+标记为无web环境
