@@ -6,7 +6,10 @@ package com.cs.ad;
 * 全量索引的加载
 * （DB中的所需要的记录，导出为JSON文件，
 * 然后系统读取JSON文件加载为全量索引）
-* Binlog的实现监听，系统根据模板JSON解析Binlog实现增量索引
+* Binlog的实现监听，系统根据模板JSON解析Binlog,将event转化为rowData,
+* 获得了增量数据
+*
+* 实现增量索引
 *
 * 增量数据投递到Kafka
 *

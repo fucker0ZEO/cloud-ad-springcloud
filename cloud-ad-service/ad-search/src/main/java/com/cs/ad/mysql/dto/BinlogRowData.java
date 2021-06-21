@@ -15,7 +15,8 @@ import java.util.Map;
 @Data
 public class BinlogRowData {
 
-    /**table和after一起被填充*/
+    /**table和after一起被填充
+     * table是一个嵌套在rowData中的model*/
     private TableTemplate table;
 
     /*血坑，这里引入了javafx包的event*/
