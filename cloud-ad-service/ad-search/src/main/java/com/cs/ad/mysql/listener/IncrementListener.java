@@ -90,7 +90,7 @@ public class IncrementListener implements Ilistener {
                 _afterMap.put(colName, colValue);
             }
 //            将解析后的map添加进fieldValueMap
-            rowData.getFiledValueMap().add(_afterMap);
+            rowData.getFieldValueMap().add(_afterMap);
 
         }
 

@@ -236,7 +236,9 @@ public class IndexSender implements ISender {
      * 操作类似于前面2个，可参考前面的，不再注释赘述
      */
     private void Level4RowData(MysqlRowData rowData) {
-
+        /*第3层级是3个限制维度，因此使用switch判断
+        * switch -> for -> switch
+        * 3层嵌套，略多了*/
         switch (rowData.getTableName()) {
 
             case Constant.AD_UNIT_DISTRICT_TABLE_INFO.TABLE_NAME:
