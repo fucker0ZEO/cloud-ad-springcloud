@@ -1,7 +1,7 @@
 package com.cs.ad.index.Inverted.district;
 
 import com.cs.ad.index.IndexAware;
-import com.cs.ad.index.utils.CommonUtils;
+import com.cs.ad.utils.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

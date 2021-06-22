@@ -1,5 +1,13 @@
-package com.cs.ad.index.utils;
+package com.cs.ad.utils;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.time.DateUtils;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -7,6 +15,7 @@ import java.util.function.Supplier;
  * @author fucker
  *
  */
+@Slf4j
 public class CommonUtils {
     /**如果传递进来的map中不存在第一个参数K Key，
      * 则利用Supplier<V> factory返回新的对象 <K,V> V
@@ -50,5 +59,35 @@ public class CommonUtils {
         result.deleteCharAt(result.length() -1);
 
         return result.toString();
+    }
+
+    /**由Binlog打印出的Date为JSON格式，需要转换为Date类型对象
+     * 但转换有坑
+     *需要解析打印出的Date
+     *
+     * 工具类解析打印出的Date
+     * */
+    public static Date parseStringDate(String dateString){
+
+        try {
+            //        设置解析格式 DateFormat,传入对应的格式
+            DateFormat dateFormat = new SimpleDateFormat(
+                    "EEE MMM dd HH:mm:ss zzz yyyy",
+//                设置常量信息，US表示美国
+                    Locale.US
+            );
+//            传入需要解析的字符串，并返回结果日期。
+//            因为国内是东8区，因此需要对解析后的时间额外－8小时，
+//            使用addHours完成加减
+            return DateUtils.addHours(
+//                    解析时间字符串
+                    dateFormat.parse(dateString),
+//                    加上-8，即为-8小时
+                    -8
+            );
+        } catch (ParseException e) {
+            log.error("parseStringDate error: {}", dateString);
+            return null;
+        }
     }
 }

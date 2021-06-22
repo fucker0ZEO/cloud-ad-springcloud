@@ -1,7 +1,7 @@
 package com.cs.ad.index.Inverted.keyword;
 
 import com.cs.ad.index.IndexAware;
-import com.cs.ad.index.utils.CommonUtils;
+import com.cs.ad.utils.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;

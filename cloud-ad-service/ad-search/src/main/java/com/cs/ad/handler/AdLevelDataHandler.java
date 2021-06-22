@@ -15,7 +15,7 @@ import com.cs.ad.index.adUnit.AdUnitIndex;
 import com.cs.ad.index.adUnit.AdUnitObject;
 import com.cs.ad.index.creative.CreativeIndex;
 import com.cs.ad.index.creative.CreativeObject;
-import com.cs.ad.index.utils.CommonUtils;
+import com.cs.ad.utils.CommonUtils;
 import com.cs.ad.mysql.constant.OpType;
 import lombok.extern.slf4j.Slf4j;
 

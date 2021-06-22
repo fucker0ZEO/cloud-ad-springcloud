@@ -30,6 +30,6 @@ public class MysqlRowData {
     /**字段值映射,多个map组成的一个list
      * 单个map中的k为colName, v为colValue
      * k,v相关的数据参考AggregationListener类中的buildRowData*/
-    private List<Map<String,String>> filedValueMap =new ArrayList<>();
+    private List<Map<String,String>> fieldValueMap =new ArrayList<>();
 
 }

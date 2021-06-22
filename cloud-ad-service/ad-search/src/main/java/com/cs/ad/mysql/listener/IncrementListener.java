@@ -27,8 +27,11 @@ public class IncrementListener implements Ilistener {
 
     /**根据name选择注入
      * sender是投递接口，其中有多个投递方式
-     * name选择特定的实现方式*/
-    @Resource(name = "")
+     * name选择特定的实现方式
+     *
+     *最后注入 @Component("indexSender") 标注的Isender接口的实现类
+     * */
+    @Resource(name = "indexSender")
     private ISender sender;
     /**需要使用AggregationListener实现注册*/
     @Autowired
