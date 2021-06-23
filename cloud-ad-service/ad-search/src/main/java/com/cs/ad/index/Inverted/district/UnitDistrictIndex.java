@@ -1,14 +1,18 @@
 package com.cs.ad.index.Inverted.district;
 
 import com.cs.ad.index.IndexAware;
+import com.cs.ad.search.vo.feature.DistrictFeature;
 import com.cs.ad.utils.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.stream.Collectors;
 
 /**
  * @author fucker
@@ -27,6 +31,37 @@ public class UnitDistrictIndex implements IndexAware<String, Set<Long>> {
         districtUnitMap = new ConcurrentHashMap<>();
         unitDistrictMap = new ConcurrentHashMap<>();
     }
+
+    /**match方法，实现匹配
+     * districts 为多个ProvinceAndCity实体类对象组成的集合
+     * ProvinceAndCity类似于被嵌套的实体类对象。其中有省和市2个属性
+     * */
+    public boolean match(Long adUnitId,
+                         List<DistrictFeature.ProvinceAndCity> districts){
+//        校验ProvinceAndCity实体类对象中省或者市都不为为null
+        if (unitDistrictMap.containsKey(adUnitId)
+                && CollectionUtils.isEmpty(unitDistrictMap.get(adUnitId)) ){
+//            根据索引map的get方法+get传入的adUnitId,`返回对应的数据记录对象
+            Set<String> unitDistricts = unitDistrictMap.get(adUnitId);
+//            targetDistricts为目标地区。
+//            将ProvinceAndCity实体类中的省和市2个属性拼接为一个字符串，
+//            存入targetDistricts属性中
+            List<String> targetDistricts = districts.stream()
+                    .map(
+//                            stringConcat()为自定义的字符串拼接方法
+//                            省和市2个属性，拼接为1个字符串
+                            d -> CommonUtils.stringConcat(
+                                    d.getProvince(), d.getCity()
+                            )
+//                            map转变为list
+                    ).collect(Collectors.toList());
+//            校验目标地区是否是unitDistricts的子集合
+            return CollectionUtils.isSubCollection(targetDistricts, unitDistricts);
+        }
+//
+        return false;
+    }
+
 
     @Override
     public Set<Long> get(String key) {
@@ -84,25 +119,4 @@ public class UnitDistrictIndex implements IndexAware<String, Set<Long>> {
 
         log.info("UnitDistrictIndex, after delete: {}", unitDistrictMap);
     }
-
-//    public boolean match(Long adUnitId,
-//                         List<DistrictFeature.ProvinceAndCity> districts) {
-//
-//        if (unitDistrictMap.containsKey(adUnitId) &&
-//                CollectionUtils.isNotEmpty(unitDistrictMap.get(adUnitId))) {
-//
-//            Set<String> unitDistricts = unitDistrictMap.get(adUnitId);
-//
-//            List<String> targetDistricts = districts.stream()
-//                    .map(
-//                            d -> CommonUtils.stringConcat(
-//                                    d.getProvince(), d.getCity()
-//                            )
-//                    ).collect(Collectors.toList());
-//
-//            return CollectionUtils.isSubCollection(targetDistricts, unitDistricts);
-//        }
-//
-//        return false;
-//    }
 }

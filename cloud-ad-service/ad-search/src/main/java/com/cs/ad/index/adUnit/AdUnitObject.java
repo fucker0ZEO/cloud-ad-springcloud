@@ -48,5 +48,52 @@ public class AdUnitObject {
         }
     }
 
-//    使用具体的positionType
+    /**    使用具体的positionType,对具体的流量类型进行判断
+     */
+
+    private static boolean  isKaiPing(int positionType){
+        /*传入的positionType
+         * 和常量中定义的positionType进行相与
+         * 大于0则不匹配*/
+        return (positionType & AdUnitConstants.POSITION_TYPE.KAIPING)>0;
+    }
+
+    /**另外几个校验也类似，不再注释赘述*/
+    private static boolean isTiePian(int positionType) {
+        return (positionType & AdUnitConstants.POSITION_TYPE.TIEPIAN) > 0;
+    }
+
+    private static boolean isTiePianMiddle(int positionType) {
+        return (positionType & AdUnitConstants.POSITION_TYPE.TIEPIAN_MIDDLE) > 0;
+    }
+
+    private static boolean isTiePianPause(int positionType) {
+        return (positionType & AdUnitConstants.POSITION_TYPE.TIEPIAN_PAUSE) > 0;
+    }
+
+    private static boolean isTiePianPost(int positionType) {
+        return (positionType & AdUnitConstants.POSITION_TYPE.TIEPIAN_POST) > 0;
+    }
+
+    /**总方法调用其他方法，进行统一校验流量类型
+     * switch循环调用定义的单独校验方法*/
+    public static boolean isAdSlotTypeOK(int adSlotType, int positionType) {
+
+        switch (adSlotType) {
+            case AdUnitConstants.POSITION_TYPE.KAIPING:
+                return isKaiPing(positionType);
+            case AdUnitConstants.POSITION_TYPE.TIEPIAN:
+                return isTiePian(positionType);
+            case AdUnitConstants.POSITION_TYPE.TIEPIAN_MIDDLE:
+                return isTiePianMiddle(positionType);
+            case AdUnitConstants.POSITION_TYPE.TIEPIAN_PAUSE:
+                return isTiePianPause(positionType);
+            case AdUnitConstants.POSITION_TYPE.TIEPIAN_POST:
+                return isTiePianPost(positionType);
+//                都不匹配则返回false
+            default:
+                return false;
+        }
+    }
+
 }

@@ -23,6 +23,14 @@ import java.util.Map;
 @AllArgsConstructor
 public class SearchResponse {
 
+    /*填充map*/
+    /*整个response定义为map
+     * k为广告位的编码，
+     * v为list<creative>，即创意列表。
+     * 一个广告位可以展示多个广告创意，例如轮播广告，广告的来回滑动
+     * 因此用list*/
+    public Map<String, List<Creative>> adSlot2Ads = new HashMap<>();
+
     /**返回的创意*/
     @Data
     @NoArgsConstructor
@@ -54,13 +62,6 @@ public class SearchResponse {
         private List<String> clickMonitorUrl = Arrays.asList("www.baidu.com","www.baidu.com");
 
 
-        /*整个response定义为map
-        * k为广告位的编码，
-        * v为list<creative>，即创意列表。
-        * 一个广告位可以展示多个广告创意，例如轮播广告，广告的来回滑动
-        * 因此用list*/
-        public Map<String ,List<Creative>> adSlotsAds = new HashMap<>();
-
         /*将索引记录对象，转化为本类中定义的creative对象*/
         public static Creative convert(CreativeObject object){
             /*new creative对象*/
@@ -76,9 +77,6 @@ public class SearchResponse {
 
             return creative;
         }
-
-        /*填充map*/
-
-
     }
+
 }

@@ -63,6 +63,7 @@ public class DataTable implements ApplicationContextAware, PriorityOrdered {
     }
 
     /**提供方法给想要获取索引服务的服务类一个获取服务/缓存的方法
+     * 根据索引的类型，获取对应的索引对象，即并发map
      * */
     @SuppressWarnings("all")
     public static <T> T of(Class<T> clazz){

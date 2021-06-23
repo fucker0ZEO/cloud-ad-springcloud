@@ -26,6 +26,7 @@ public class DistrictFeature {
 
     /**地域限制列表，类型为静态内部类对象
      * 再嵌套一个实体类
+     * 多个ProvinceAndCity对象组成列表，districts
      * */
     private List<ProvinceAndCity> districts;
 }
