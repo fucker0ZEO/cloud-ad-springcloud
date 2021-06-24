@@ -2,9 +2,10 @@ package com.cs.ad.index.creative;
 
 import com.cs.ad.index.IndexAware;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -23,6 +24,32 @@ public class CreativeIndex implements IndexAware<Long,CreativeObject> {
         /*使用并发map来初始化*/
         objectMap = new ConcurrentHashMap<>();
     }
+
+
+    /**根据多个创意ID，获取到多个创意对象*/
+    public List<CreativeObject> fetch(Collection<Long> adIds){
+//        传参校验。每次传参都需要校验
+        if (CollectionUtils.isEmpty(adIds)){
+//            返回空列表
+            return Collections.emptyList();
+        }
+//        否则创建result作为返回对象
+        List<CreativeObject> result = new ArrayList<>();
+//        遍历创意Id集合，拿到每个创意id,
+//        然后调用本类的get方法获取到每个id对应的object，
+//        最后将object存入result返回
+        adIds.forEach(u -> {
+            CreativeObject object = get(u);
+//            如果获取的创意对象不存在，打印错误日志
+            if (null == object){
+                log.error("CreativeObject mot found: {}",u);
+            }
+            result.add(object);
+        });
+//        返回result
+        return result;
+    }
+
 
     @Override
     public CreativeObject get(Long key) {

@@ -1,10 +1,16 @@
 package com.cs.ad.search.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.cs.ad.index.CommonStatus;
 import com.cs.ad.index.DataTable;
+import com.cs.ad.index.Inverted.creativeUnit.CreativeUnitIndex;
 import com.cs.ad.index.Inverted.district.UnitDistrictIndex;
 import com.cs.ad.index.Inverted.interest.UnitItIndex;
 import com.cs.ad.index.Inverted.keyword.UnitKeywordIndex;
 import com.cs.ad.index.adUnit.AdUnitIndex;
+import com.cs.ad.index.adUnit.AdUnitObject;
+import com.cs.ad.index.creative.CreativeIndex;
+import com.cs.ad.index.creative.CreativeObject;
 import com.cs.ad.search.ISearch;
 import com.cs.ad.search.vo.SearchRequest;
 import com.cs.ad.search.vo.SearchResponse;
@@ -87,10 +93,44 @@ public class SearchImpl implements ISearch {
                 );
 
             }
+//            根据unitIdSet获取unitObjects
+            List<AdUnitObject> unitObjects =
+//                    先获取到索引map对象，再调用其中的fetch()获取对象
+                    DataTable.of(AdUnitIndex.class).fetch(targetUnitIdSet);
+//            校验状态是否有效,实现对有效状态的过滤
+            filterAdUnitAndPlanStatus(unitObjects,CommonStatus.VALID);
+//            根据推广单元列表获取到创意id列表。“联表查询第一步”
+            List<Long> adIds = DataTable.of(CreativeUnitIndex.class)
+                    .selectAds(unitObjects);
+//            根据创意id列表获取到创意对象列表。“联表查询第2步”
+            List<CreativeObject> creatives = DataTable.of(CreativeIndex.class)
+                    .fetch(adIds);
+
+//            通过AdSlot中的宽度，高度，流量类型实现对创意对象列表进行过滤
+            filterCreativeByAdSlot(
+                    creatives,
+                    adSlot.getWidth(),
+                    adSlot.getHeight(),
+                    adSlot.getType()
+            );
+//            将经过过滤后的creatives变为一个list，实现单广告位单创意
+//            填充adSlot2Ads这个映射关系map.
+//            k是广告位编码，v是vo包下的创意对象
+            adSlot2Ads.put(
+                    adSlot.getAdSlotCode(),
+                    buildCreativeResponse(creatives)
+            );
+
         }
 
+//      打印请求对象和响应对象的log
+        log.info("fetchAds: {}-{}",
+                JSON.toJSONString(searchRequest),
+                JSON.toJSONString(searchResponse));
 
-        return null;
+
+//        返回response
+        return searchResponse;
     }
 
 
@@ -194,4 +234,69 @@ public class SearchImpl implements ISearch {
                 )
         );
     }
+
+    /**根据status来对unitObjects进行过滤
+     * 不符合条件则从推广单元列表中移除该推广单元*/
+    private void filterAdUnitAndPlanStatus(List<AdUnitObject> unitObjects,
+                                           CommonStatus status){
+//        校验推广单元列表是否为努力了，为null则返回空
+        if (CollectionUtils.isEmpty(unitObjects)){
+            return;
+        }
+//        实现过滤
+        CollectionUtils.filter(
+//                想要过滤袋集合类型
+                unitObjects,
+//                函数的返回值为需要移除的推广单元对象
+//                传入的status和推广单元中的status,进行比较
+                object -> object.getUnitStatus().equals(status.getStatus())
+//                        且推广单元中的推广计划的status进行比较
+                        && object.getAdPlanObject().getPlanStatus().equals(status.getStatus())
+        );
+
+
+    }
+
+    /**通过AdSlot实现对创意对象列表进行过滤。
+     * 即根据宽度，高度，审核状态,流量类型进行过滤
+     */
+    private void filterCreativeByAdSlot(List<CreativeObject> creatives,
+                                        Integer width,
+                                        Integer height,
+                                        List<Integer> type){
+//        传参校验，creatives是否为null
+        if (CollectionUtils.isEmpty(creatives)){
+            return;
+        }
+
+        CollectionUtils.filter(
+                creatives,
+                creative ->
+//                        依次校验审核状态，宽，高，流量类型。
+//                        如有false则移除列表中的该creative
+                        creative.getAuditStatus().equals(CommonStatus.VALID.getStatus())
+                                && creative.getWidth().equals(width)
+                                && creative.getHeight().equals(height)
+                                && type.contains(creative.getType())
+        );
+    }
+
+    private List<SearchResponse.Creative> buildCreativeResponse(List<CreativeObject> creatives){
+
+//        传参校验creative列表是否为null
+        if (CollectionUtils.isEmpty(creatives)){
+            return Collections.emptyList();
+        }
+
+//        从创意列表中随机获取创意对象
+        CreativeObject randomObject = creatives.get(
+                Math.abs(new Random().nextInt()) % creatives.size()
+        );
+//        randomObject转化为对应的vo对象，并加入列表，最后将列表返回
+        return Collections.singletonList(
+//                调用convert方法，将creativeObject转化为vo.creative对象
+                SearchResponse.convert(randomObject)
+        );
+    }
+
 }

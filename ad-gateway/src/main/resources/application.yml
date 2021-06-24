@@ -23,3 +23,11 @@ Zuul:
       #是否跳过前缀
       strip-prefix: false
 #      最后实际的url为 127.0.0.1:9000/cs/ad-sponsor/create/adPlan 可以找到对应的配置
+    search:
+      #识别到这个前缀（/ad-search/**）就会转发到相应的微服务上，**代表匹配任意数量字符+多级目录
+      path: /ad-search/**
+      #要转发的微服务的名称
+      serviceId: eureka-client-ad-search
+      #是否跳过前缀
+      strip-prefix: false
+#      最后实际的url为 127.0.0.1:9000/cs/ad-search/fetchAds 可以找到对应的方法，实现调用

@@ -5,6 +5,9 @@ import com.cs.ad.annotation.IgnoreResponseAdvice;
 import com.cs.ad.client.SponsorClient;
 import com.cs.ad.client.vo.AdPlan;
 import com.cs.ad.client.vo.AdPlanGetRequest;
+import com.cs.ad.search.ISearch;
+import com.cs.ad.search.vo.SearchRequest;
+import com.cs.ad.search.vo.SearchResponse;
 import com.cs.ad.vo.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,11 @@ import java.util.List;
 @Slf4j
 @RestController
 public class SearchController {
+
+    /**煮热service层的接口，检索服务*/
+    @Autowired
+    private ISearch search;
+
     /**注入RestTemplate*/
     @Autowired
     private RestTemplate restTemplate;
@@ -70,5 +78,21 @@ public class SearchController {
 //        调用注入的Feign的接口sponsorClient，像调用service一样简单
         return sponsorClient.getAdPlans(request);
     }
+
+
+    /**检索广告
+     *  @RequestBody 实现JSON数据到Java对象的反序列化
+     * */
+    @PostMapping("/fetchAds")
+    public SearchResponse fetchAds( @RequestBody SearchRequest request){
+//        打印日志，标记请求被调用
+        log.info("ad-search: fetchAds -> {}",
+                JSON.toJSONString(request));
+//        调用检索方法，传入request，返回response，并返回给调用方
+        return search.fetchAds(request);
+
+
+    }
+
 
 }

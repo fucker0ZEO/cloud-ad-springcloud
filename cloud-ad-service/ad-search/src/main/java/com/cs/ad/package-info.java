@@ -29,6 +29,14 @@ package com.cs.ad;
 * 检索服务和外界（媒体方）进行交互
 *
 * 三大限制条件的匹配方法
+* 根据三大限制条件进行过滤
+*
+* 实现跨索引查询，类似于联表查询。
+* 根据多个unitId，即unitIds，获取到多个创意对象，即creativeObjects
+先获取unitObjects，
+然后通过unitCreativeMap的get(),传入unitId，拿到creativeId，根据creativeIds获取到creativeObjects
+*
+*
 *
 *
 * */

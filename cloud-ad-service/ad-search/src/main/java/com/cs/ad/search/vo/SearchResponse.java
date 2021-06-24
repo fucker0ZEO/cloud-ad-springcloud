@@ -60,23 +60,22 @@ public class SearchResponse {
         * 用户进行点击后，广告系统就需要获取到用户的点击数据，
         * 告诉媒体方，广告已经被点击了*/
         private List<String> clickMonitorUrl = Arrays.asList("www.baidu.com","www.baidu.com");
+    }
 
+    /**将索引记录对象，转化为本类中定义的creative对象*/
+    public static Creative convert(CreativeObject object){
+        /*new creative对象*/
+        Creative creative = new Creative();
 
-        /*将索引记录对象，转化为本类中定义的creative对象*/
-        public static Creative convert(CreativeObject object){
-            /*new creative对象*/
-            Creative creative = new Creative();
+        /*将creativeObject中的数据填充到从creative对象中*/
+        creative.setAdId(object.getAdId());
+        creative.setAdUrl(object.getAdUrl());
+        creative.setWidth(object.getWidth());
+        creative.setHeight(object.getHeight());
+        creative.setType(object.getType());
+        creative.setMaterialType(object.getMaterialType());
 
-            /*将creativeObject中的数据填充到从creative对象中*/
-            creative.setAdId(object.getAdId());
-            creative.setAdUrl(object.getAdUrl());
-            creative.setWidth(object.getWidth());
-            creative.setHeight(object.getHeight());
-            creative.setType(object.getType());
-            creative.setMaterialType(object.getMaterialType());
-
-            return creative;
-        }
+        return creative;
     }
 
 }

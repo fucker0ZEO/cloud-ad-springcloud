@@ -1,12 +1,12 @@
 package com.cs.ad.index.Inverted.creativeUnit;
 
 import com.cs.ad.index.IndexAware;
+import com.cs.ad.index.adUnit.AdUnitObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -125,4 +125,30 @@ public class CreativeUnitIndex implements IndexAware<String,CreativeUnitObject> 
         }
 
     }
+
+    /**通过unitObject拿到对应的ID*/
+    public List<Long> selectAds(List<AdUnitObject> unitObjects){
+//        校验推广单元对象是否为null
+        if(CollectionUtils.isEmpty(unitObjects)){
+//            返回空列表
+            return Collections.emptyList();
+        }
+//        否则定义List作为result返回
+        List<Long> result = new ArrayList<>();
+//        遍历unitObjects
+        for (AdUnitObject unitObject : unitObjects){
+//            根据每一个unitObject中的unitId进行查询，
+//            根据unitCreativeMap索引的get方法，
+//            获取到Set<Long>，即创意ID
+            Set<Long> adIds = unitCreativeMap.get(unitObject.getUnitId());
+//            校验创意ID是否为null
+            if (CollectionUtils.isNotEmpty(adIds)) {
+//                不为null，则将创意ID集合添加入返回集合
+                result.addAll(adIds);
+            }
+        }
+//        返回返回集
+        return result;
+    }
+
 }
